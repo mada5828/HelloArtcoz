@@ -1059,19 +1059,21 @@ namespace Google2u
 
         public void ExportThread(object in_instance)
         {
+
             // Do all of our exporting here
             switch (WorksheetExportType)
             {
-                default:
-                    return;
+
                 case ExportType.CSV:
                 {
                     Google2u.ExportCsv(this, _CSVPath, MyWorkbook.ExportOptions);
-                    break;
+                    Google2u.Instance.InstanceData.Commands.Add(GFCommand.AssetDatabaseRefresh);
+                break;
                 }
                 case ExportType.JSON:
                 {
                     Google2u.ExportJson(this, _JSONPath, MyWorkbook.ExportOptions);
+                    Google2u.Instance.InstanceData.Commands.Add(GFCommand.AssetDatabaseRefresh);
                 }
                     break;
                 case ExportType.NGUI:
@@ -1080,17 +1082,20 @@ namespace Google2u
                         Google2u.ExportNGUILegacy(this, _NGUIPath, MyWorkbook.ExportOptions);
                     else
                         Google2u.ExportNGUI(this, _NGUIPath, MyWorkbook.ExportOptions);
+                    Google2u.Instance.InstanceData.Commands.Add(GFCommand.AssetDatabaseRefresh);
                 }
                     break;
                 case ExportType.StaticDatabase:
                 {
                     var respath = Path.Combine(_StaticDbPath, WorksheetName).Replace('\\', '/');
                     Google2u.ExportStaticDB(this, respath, WorksheetName, MyWorkbook.ExportOptions);
-                    break;
+                    Google2u.Instance.InstanceData.Commands.Add(GFCommand.AssetDatabaseRefresh);
                 }
+                    break;
                 case ExportType.XML:
                 {
                     Google2u.ExportXML(this, _XMLPath, MyWorkbook.ExportOptions);
+                    Google2u.Instance.InstanceData.Commands.Add(GFCommand.AssetDatabaseRefresh);
                 }
                     break;
                 case ExportType.ObjectDatabase:
@@ -1100,6 +1105,9 @@ namespace Google2u
                     Google2u.ExportObjectDb(this, respath, edpath, _PlaymakerPath, MyWorkbook.ExportOptions);
                 }
                     break;
+
+                default:
+                    return;
             }
         }
 

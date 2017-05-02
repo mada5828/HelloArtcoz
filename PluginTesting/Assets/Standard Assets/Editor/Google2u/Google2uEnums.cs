@@ -25,7 +25,8 @@ namespace Google2u
         ManualWorkbooksRetrievalComplete,
         DoUpload,
         WaitingForUpload,
-        UploadComplete
+        UploadComplete,
+        AssetDatabaseRefresh
     }
 
     public enum ExportType
